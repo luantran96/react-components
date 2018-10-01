@@ -17,16 +17,32 @@ class GroceryListItem extends React.Component {
   constructor(props) {
     // Equivalent to ES5's React.Component.call(this, props)
     super(props);
+
+    this.state = {
+    	done: false
+    };
+  }
+
+  // When a list item is clicked, we will toggle the `done`
+  // boolean, and our component's `render` method will run again
+  onListItemClick() {
+    this.setState({
+      done: !this.state.done
+    });
   }
 
   // Every class component must have a `render` method
   // Stateless functional components are pretty much just this method
   render() {
 
-    // `props` is no longer passed as an argument,
-    // but instead accessed with `this.props`
+  	var style = {
+      //textDecoration: this.state.done ? 'line-through' : 'none'
+      fontWeight: this.state.done ? 'bold' : 'normal'
+    };
+
+
     return (
-      <li>{this.props.ListItem}</li>
+      <li style={style} onMouseOver={this.onListItemClick.bind(this)}>{this.props.ListItem}</li>
     );
 
   }
@@ -35,10 +51,6 @@ class GroceryListItem extends React.Component {
 
 
 var GroceryList = (props) => {
-
-	var onListItemClick = (event) => {
-		console.log('I got clicked');
-	}
 
 	return (
 	<ul>
